@@ -1,7 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class TestClass {
@@ -9,6 +9,7 @@ public class TestClass {
     private FirefoxDriver driver;
     private MainPage mainPage;
     private IPhone7Page iPhone7Page;
+
 
     @Before
     public void setUp(){
@@ -30,7 +31,7 @@ public class TestClass {
         mainPage.enterSearchData("iPhone");
         mainPage.getExpectedResult("Apple iPhone 7");
         iPhone7Page.chooseAllPrices();
-        iPhone7Page.getMinPrice(10, 6);
+        iPhone7Page.getMinPrice(10, 6, 12);
     }
 
 }
