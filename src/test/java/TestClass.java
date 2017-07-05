@@ -1,12 +1,15 @@
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class TestClass {
 
-    private FirefoxDriver driver;
+    private WebDriver driver;
     private MainPage mainPage;
     private IPhone7Page iPhone7Page;
 
@@ -19,19 +22,18 @@ public class TestClass {
         driver.manage().window().maximize();
 
     }
-    /*@After
+    @After
     public void tearDown(){
-        if (driver != null) {
-            driver.close();
-        }
-    }*/
+        driver.close();
+    }
+
     @Test
     public void iPhone7Find(){
         mainPage.openUrl("http://hotline.ua");
         mainPage.enterSearchData("iPhone");
         mainPage.getExpectedResult("Apple iPhone 7");
         iPhone7Page.chooseAllPrices();
-        iPhone7Page.getMinPrice(10, 6, 12);
+        iPhone7Page.getMinPrice(10, "6", 12);
     }
 
 }

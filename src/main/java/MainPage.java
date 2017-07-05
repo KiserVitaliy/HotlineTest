@@ -12,18 +12,14 @@ public class MainPage {
 
     private WebDriver driver;
     private List<WebElement> iPhones;
-    private CharSequence search;
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void openUrl(String url){
-        driver.get(url);
-    }
+    public void openUrl(String url) { driver.get(url); }
 
     public void enterSearchData(CharSequence search){
-        this.search = search;
         driver.findElement(By.cssSelector("#searchbox")).click();
         driver.findElement(By.cssSelector("#searchbox")).sendKeys(search);
     }
@@ -31,20 +27,19 @@ public class MainPage {
     public void getExpectedResult(CharSequence expectedResult){
         //Wait for auto-search appears
         WebDriverWait wait = new WebDriverWait(driver, 2);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//li/a[contains(text(), 'Apple')]")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='ui-menu-item']")));
         //Add elements to the list
-        iPhones = driver.findElements(By.xpath("//li/a[contains(text(), 'Apple')]"));
+        iPhones = driver.findElements(By.xpath("//*[@class='ui-menu-item']"));
         //Print count of found items
-        System.out.println("Found " + iPhones.size() + " iPhones");
+        System.out.println("Found " + iPhones.size() + " items.");
         //Find expectedResult in the list
-        for (int i=1; i<=iPhones.size(); i++) {
+        for (WebElement element : iPhones) {
             //Choose found result
-            if ((iPhones.get(i-1).getText().contains(expectedResult))) {
-                System.out.println(iPhones.get(i-1).getText());
-                iPhones.get(i-1).click();
+            if ((element.getText().contains(expectedResult))) {
+                System.out.println("Item: " + element.getText() + " is selected.");
+                element.click();
+                break;
             }
         }
     }
-
-
 }
